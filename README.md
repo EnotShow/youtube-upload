@@ -117,6 +117,8 @@ options = {
     "privacyStatus" : "private", # Video privacy. Can either be "public", "private", or "unlisted"
     "kids" : False, # Specifies if the Video if for kids or not. Defaults to False.
     "thumbnailLink" : "https://cdn.havecamerawilltravel.com/photographer/files/2020/01/youtube-logo-new-1068x510.jpg" # Optional. Specifies video thumbnail.
+    "publishAt" : datetime.date.today().isoformat() # Optional. Used to set video public by the schedule. Required privacyStatus = "private" 
+    
 }
 
 # upload video
