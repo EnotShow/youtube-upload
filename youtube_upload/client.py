@@ -87,9 +87,6 @@ class YoutubeUploader():
 
         self.max_retry = MAX_RETRIES
 
-    def __del__(self):
-        self.close()
-
     # This is if you have another OAuth file to use
     def authenticate(
             self,
@@ -156,6 +153,7 @@ class YoutubeUploader():
             privacyStatus : "private",
             kids : False
             thumbnailLink : "https://cdn.havecamerawilltravel.com/photographer/files/2020/01/youtube-logo-new-1068x510.jpg"
+            *publishAt : "datetime.date.today().isoformat()"
         }
         ```
 
@@ -183,6 +181,9 @@ class YoutubeUploader():
                 'selfDeclaredMadeForKids': options.get('kids', False)
             }
         }
+
+        if 'publishAt' in options:
+            body['status']['publishAt'] = options.get('publishAt')
 
         insert_request = self.youtube.videos().insert(
             part=",".join(
@@ -229,6 +230,7 @@ class YoutubeUploader():
             privacyStatus : "private",
             kids : False
             thumbnailLink : "https://cdn.havecamerawilltravel.com/photographer/files/2020/01/youtube-logo-new-1068x510.jpg"
+            *publishAt : "datetime.date.today().isoformat()"
         }
         ```
 
@@ -253,8 +255,12 @@ class YoutubeUploader():
             'status': {
                 'privacyStatus': options.get('privacyStatus', VALID_PRIVACY_STATUSES[0]),
                 'selfDeclaredMadeForKids': options.get('kids', False)
+
             }
         }
+
+        if 'publishAt' in options:
+            body['status']['publishAt'] = options.get('publishAt')
 
         media = MediaIoBaseUpload(
             file_object,
